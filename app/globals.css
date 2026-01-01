@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #E54F6D;
+  --color-primary-50: #fdf2f5;
+  --color-primary-100: #fbe8ee;
+  --color-primary-200: #f8d5e0;
+  --color-primary-300: #f2b1c6;
+  --color-primary-400: #ea80a2;
+  --color-primary-500: #E54F6D;
+  --color-primary-600: #d43b5e;
+  --color-primary-700: #b32b4b;
+  --color-primary-800: #8f223c;
+  --color-primary-900: #721a2f;
+
+  --color-accent: #5BC8AF;
+  --color-accent-50: #f0fdf9;
+  --color-accent-100: #ccfbf1;
+  --color-accent-200: #99f6e4;
+  --color-accent-300: #5eead4;
+  --color-accent-400: #5BC8AF;
+
+  --color-navy: #004777;
+  --color-navy-50: #e6f0f9;
+  --color-navy-100: #b8d9ef;
+  --color-navy-200: #89c1e4;
+  --color-navy-300: #5aa9d9;
+  --color-navy-400: #2c92cf;
+  --color-navy-500: #004777;
+
+  --color-dark: #4C1036;
+  --color-light: #F0E2E7;
+}
+
+/* Optional global styles */
+html, body {
+  @apply min-h-screen bg-light;
+}
