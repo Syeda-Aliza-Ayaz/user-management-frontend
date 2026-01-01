@@ -86,7 +86,7 @@ export default function Home() {
             )}
             <li className="text-primary hover:underline cursor-pointer">
               <a
-                href={`http://localhost:3001/?name=${encodeURIComponent(user?.name || "")}`}
+                href={`http://localhost:3000/?name=${encodeURIComponent(user?.name || "")}&department=Computer%20Science&purseNumber=12345678`}
                 target="_blank"
                 rel="noopener noreferrer"
               >

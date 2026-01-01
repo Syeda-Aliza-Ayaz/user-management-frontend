@@ -93,7 +93,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           )}
 
           <a
-            href={`http://localhost:3001/?name=${encodeURIComponent(user.name)}`}
+            href={`http://localhost:3000/?name=${encodeURIComponent(user.name)}&department=Computer%20Science&purseNumber=12345678`}
             // Replace with live URL when deployed:
             // href={`https://your-feedback-app.vercel.app/?name=${encodeURIComponent(user.name)}`}
             target="_blank"
