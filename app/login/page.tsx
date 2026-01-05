@@ -1,73 +1,3 @@
-// "use client";
-
-// import { useState } from "react";
-// import { apiFetch } from "../../lib/api";
-// import Link from "next/link";
-// import { useRouter } from "next/navigation";
-// import toast from "react-hot-toast";
-
-// export default function LoginPage() {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const router = useRouter();
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-
-//     const res = await apiFetch("/login/", {
-//       method: "POST",
-//       credentials: "include",
-//       body: JSON.stringify({ email, password }),
-//     });
-
-//     const data = await res.json();
-//     if(res.ok){
-//         toast.success("Logged in successfully")
-//         router.push("/");
-//     }
-//     else{
-//         if(res.status==401){
-//             toast.error("Invalid credentials")
-//         }
-//     }
-//     console.log(data);
-//   };
-
-//   return (
-//     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-//       <form
-//         onSubmit={handleSubmit}
-//         className="w-full max-w-sm bg-white p-6 rounded-xl shadow-md space-y-4"
-//       >
-//         <h1 className="text-2xl font-semibold text-center">Login</h1>
-
-//         <input
-//           type="email"
-//           placeholder="Email"
-//           required
-//           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           onChange={(e) => setEmail(e.target.value)}
-//         />
-
-//         <input
-//           type="password"
-//           placeholder="Password"
-//           required
-//           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           onChange={(e) => setPassword(e.target.value)}
-//         />
-
-//         <button
-//           type="submit"
-//           className="cursor-pointer w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-//         >
-//           Login
-//         </button>
-//         <Link href="/register"><button className="cursor-pointer w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-purple-700 transition">Create an account</button></Link>
-//       </form>
-//     </div>
-//   );
-// }
 "use client";
 
 import { useState } from "react";
@@ -99,58 +29,65 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-light via-white to-accent-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-white px-4">
       <div className="w-full max-w-md">
-        <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-8 border border-primary-200">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-navy mb-2">Welcome Back</h1>
-            <p className="text-navy/70">Sign in to access your dashboard</p>
+        <div className="bg-white rounded-2xl shadow-2xl p-10 border border-gray-200">
+          {/* Header */}
+          <div className="text-center mb-10">
+            <h1 className="text-4xl font-bold text-black mb-3">Welcome Back</h1>
+            <p className="text-gray-600 text-lg">Sign in to continue</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-7">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-navy">Email</label>
+              <label className="text-sm font-medium text-gray-700">Email</label>
               <input
                 type="email"
                 placeholder="your@email.com"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-primary-200 focus:border-primary focus:ring-4 focus:ring-primary-100 outline-none transition"
+                className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-black focus:ring-4 focus:ring-black/10 outline-none transition text-black placeholder-gray-400"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-navy">Password</label>
+              <label className="text-sm font-medium text-gray-700">Password</label>
               <input
                 type="password"
                 placeholder="••••••••"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-primary-200 focus:border-primary focus:ring-4 focus:ring-primary-100 outline-none transition"
+                className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-black focus:ring-4 focus:ring-black/10 outline-none transition text-black placeholder-gray-400"
               />
             </div>
 
             <button
               type="submit"
-              className="cursor-pointer w-full bg-primary hover:bg-primary-600 active:bg-primary-700 text-white font-semibold py-4 rounded-xl shadow-lg hover:shadow-primary-300/50 transform hover:-translate-y-1 transition-all duration-200"
+              className="cursor-pointer w-full bg-black hover:bg-gray-800 text-white font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
             >
               Sign In
             </button>
           </form>
 
-          <div className="mt-8 text-center">
-            <p className="text-navy/60">
-              Don&apos;t have an account?{" "}
-              <Link href="/register" className="text-primary font-semibold hover:text-primary-600 transition hover:underline cursor-pointer">
+          {/* Footer Link */}
+          <div className="mt-10 text-center">
+            <p className="text-gray-600">
+              Don't have an account?{" "}
+              <Link
+                href="/register"
+                className="cursor-pointer text-black font-semibold hover:underline transition"
+              >
                 Create one
               </Link>
             </p>
           </div>
         </div>
 
-        <p className="text-center mt-8 text-navy/50 text-sm">
+        {/* Footer */}
+        <p className="text-center mt-10 text-gray-500 text-sm">
           User Management System © 2026
         </p>
       </div>
