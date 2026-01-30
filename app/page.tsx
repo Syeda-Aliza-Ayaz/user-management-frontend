@@ -298,6 +298,89 @@ type User = {
   purse_number?: string;
 };
 
+const MOCK_USERS: User[] = [
+  {
+    id: "1",
+    email: "admin@example.com",
+    name: "Muhammad Ahmed",
+    permissions: [],
+    role: "admin",
+    department: "IT",
+    purse_number: "P001"
+  },
+  {
+    id: "2",
+    email: "ali.hassan@example.com",
+    name: "Ali Hassan",
+    permissions: [],
+    role: "user",
+    department: "Sales",
+    purse_number: "P002"
+  },
+  {
+    id: "3",
+    email: "ayesha.khan@example.com",
+    name: "Ayesha Khan",
+    permissions: [],
+    role: "user",
+    department: "Marketing",
+    purse_number: "P003"
+  },
+  {
+    id: "4",
+    email: "hamza.malik@example.com",
+    name: "Hamza Malik",
+    permissions: [],
+    role: "user",
+    department: "Engineering",
+    purse_number: "P004"
+  },
+  {
+    id: "5",
+    email: "usman.raza@example.com",
+    name: "Usman Raza",
+    permissions: [],
+    role: "user",
+    department: "HR",
+    purse_number: "P005"
+  },
+  {
+    id: "6",
+    email: "bilal.sheikh@example.com",
+    name: "Bilal Sheikh",
+    permissions: [],
+    role: "user",
+    department: "Finance",
+    purse_number: "P006"
+  },
+  {
+    id: "7",
+    email: "fatima.ali@example.com",
+    name: "Fatima Ali",
+    permissions: [],
+    role: "user",
+    department: "Operations",
+    purse_number: "P007"
+  },
+  {
+    id: "8",
+    email: "zain.abbasi@example.com",
+    name: "Zain Abbasi",
+    permissions: [],
+    role: "user",
+    department: "Customer Service",
+    purse_number: "P008"
+  }
+];
+
+const MOCK_SUBMITTED_SERVICES: Record<string, string[]> = {
+  "P002": ["cafeteria", "library"],
+  "P003": ["student_affairs"],
+  "P004": ["transport", "it_services"],
+  "P005": ["cafeteria", "registrar", "library"],
+  "P006": ["student_affairs", "transport"]
+};
+
 export default function AllUsers() {
   const [users, setUsers] = useState<User[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -305,6 +388,23 @@ export default function AllUsers() {
   const [submittedServices, setSubmittedServices] = useState<Record<string, string[]>>({});
 
   useEffect(() => {
+    (async () => {
+      setLoading(true);
+      // Fetch and print latest submission status for each user on initial load
+      const submissionsMap: Record<string, string[]> = {};
+      for (const user of MOCK_USERS) {
+        if (user.purse_number) {
+          const result = await fetchSubmittedServices(user.purse_number);
+          submissionsMap[user.purse_number] = result.submitted;
+          console.log('Initial API submission status for', user.purse_number, result.submitted);
+        }
+      }
+      setUsers(MOCK_USERS);
+      setSubmittedServices(submissionsMap);
+      setLoading(false);
+    })();
+
+    /*
     apiFetch("/users/")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch users");
@@ -335,6 +435,7 @@ export default function AllUsers() {
         toast.error("Could not load users");
       })
       .finally(() => setLoading(false));
+    */
   }, []);
 
   const fetchSubmittedServices = async (purseNumber: string): Promise<{ purseNumber: string; submitted: string[] }> => {
@@ -366,6 +467,12 @@ export default function AllUsers() {
   const handleDeleteUser = async (userId: string) => {
     if (!confirm(`Delete ${users.find(u => u.id === userId)?.name || "this user"}?`)) return;
 
+    // Mock delete (just remove from state)
+    toast.success("User deleted");
+    setUsers(users.filter((u) => u.id !== userId));
+
+    // Original API call (commented out)
+    /*
     const csrfToken = await getCSRFToken();
     const res = await apiFetch(`/users/${userId}/`, {
       method: "DELETE",
@@ -378,6 +485,7 @@ export default function AllUsers() {
     } else {
       toast.error("Failed to delete user");
     }
+    */
   };
 
   const openFeedbackAsUser = (user: User) => {
@@ -391,7 +499,7 @@ export default function AllUsers() {
     window.open(`${baseUrl}?${params.toString()}`, "_blank");
   };
 
-  const openServiceFeedback = (user: User, service: string) => {
+  const openServiceFeedback = async (user: User, service: string) => {
     const baseUrl = process.env.NEXT_PUBLIC_FEEDBACK_FORM_URL || "http://localhost:3000";
 
     const params = new URLSearchParams();
