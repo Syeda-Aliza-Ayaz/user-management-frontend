@@ -115,11 +115,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
       {/* Main Content */}
       <main className="flex-1 p-8 lg:p-12 overflow-y-auto">
-        <header className="mb-10">
-          <h1 className="text-4xl font-bold text-black">
+        <header className="mb-6">
+          <h1 className="text-2xl font-bold text-black">
             Hello, <span className="text-black">{user.name}</span>
           </h1>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-600 mt-1">
             {canManageUsers
               ? "Manage users or provide feedback below."
               : "Explore the system and provide your valuable feedback."}
